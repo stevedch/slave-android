@@ -25,9 +25,11 @@ public class DisplayDataActivity extends AppCompatActivity {
         Realm realm = Realm.getDefaultInstance();
         RealmResults<User> users = realm.where(User.class).findAll();
 
-        for (int i = 0; i < users.size(); i++) {
 
-            textView.append(String.format("%s %s %s \n", users.get(i).getId(), users.get(i).getUser(), users.get(i).getSalt()));
+        if (!users.isEmpty()) {
+            for (User user : users) {
+                textView.append(String.format("%s %s %s %s \n", user.getId(), user.getCreatedAt().toString(), user.getUser(), user.getSalt()));
+            }
         }
     }
 }

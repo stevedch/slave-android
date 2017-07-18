@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Date;
-import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
                 realm.beginTransaction();
 
-                User user = realm.createObject(User.class, 2);
+                User user = realm.createObject(User.class, realm.where(User.class).max("id").intValue() + 1);
                 user.setCreatedAt(new Date());
                 user.setUser(editText.getText().toString());
                 user.setPassword(editText.getText().toString());
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
                 RealmList<Roles> roles = new RealmList<>();
 
-                Roles rol = realm.createObject(Roles.class, 3);
+                Roles rol = realm.createObject(Roles.class, realm.where(Roles.class).max("id").intValue() + 1);
                 rol.setName("TEST");
                 roles.add(rol);
 
